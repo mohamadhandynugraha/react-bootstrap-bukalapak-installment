@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Container, Row } from "react-bootstrap";
+import Col3 from "./components/col3.component";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      payments: []
+    };
+  }
+
+  async componentDidMount() {
+    const responsePayments = await fetch(
+      "https://api.bukalapak.com/v2/products/f3vi.json"
+    );
+    const paymentJson = await responsePayments.json();
+    this.setState({ payments: paymentJson.product.installment });
+  }
+
+  render() {
+    return (
+      <Container>
+        <Row>
+          <Col3 payments={this.state.payments}/>
+          {console.log(this.state.payments)}
+        </Row>
+      </Container>
+    );
+  }
 }
 
 export default App;
