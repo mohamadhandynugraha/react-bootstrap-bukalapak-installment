@@ -11,8 +11,8 @@ const Col3 = props => {
     <>  
       {props.payments.map(payment => {
         return (
-          <Col md={3}> 
-            <Card key={payment.bank_issuer} > 
+          <Col md={3} key={payment.bank_issuer}> 
+            <Card> 
               <Card.Img variant="top" src={payment.url_logo} />
               <Card.Body>
                 <Card.Title>{payment.bank_name}</Card.Title>
